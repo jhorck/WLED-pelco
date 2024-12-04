@@ -308,6 +308,12 @@ void handleE131Packet(e131_packet_t* p, IPAddress clientIP, byte protocol){
           }
         }
 
+        if (previousLeds == 0) {
+          setPTZ(e131_data[dmxOffset], e131_data[dmxOffset+1], e131_data[dmxOffset+2], e131_data[dmxOffset+3]);
+          dmxOffset+=4;
+          ledsTotal-=2;
+        }
+
         if (!is4Chan) {
           for (uint16_t i = previousLeds; i < ledsTotal; i++) {
             setRealtimePixel(i, e131_data[dmxOffset], e131_data[dmxOffset+1], e131_data[dmxOffset+2], 0);
